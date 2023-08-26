@@ -1,6 +1,10 @@
 {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "files.autoSave": "afterDelay"
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.autoSave": "afterDelay",
+  "files.associations": {
+    "biblioteca.h": "c",
+    "stdio.h": "c",
+    "stdlib.h": "c"
   }
-  
+}
