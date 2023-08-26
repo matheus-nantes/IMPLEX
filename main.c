@@ -1,4 +1,5 @@
 #include <time.h>
+#include <sys/time.h>
 #include "biblioteca.h"
 
 #define BILLION  1000000000.0
@@ -7,9 +8,9 @@
 int main(){
 
     int inc,fim,stp,rpt;
-    float media = 0;
+    double media = 0;
 
-    printf("Informe o valor de início para n: ");
+    printf("Informe o valor de inicio para n: ");
     scanf("%d",&inc);
 
     printf("Informe o valor de fim para n: ");
@@ -18,17 +19,18 @@ int main(){
     printf("Informe o intervalo: ");
     scanf("%d",&stp);
 
-    printf("Informe a quantidade de repetições: ");
+    printf("Informe a quantidade de repeticoes: ");
     scanf("%d",&rpt);
 
 
     int* vetor, *vetorS,*vetorI,*vetorM,*vetorH,*vetorQ,*vetorC;
+    FILE *selec, *insert, *merge, *heap, *quick, *count;
 
  
-    printf("[[RANDOM]]\n");
-    printf("    n    Selection   Insertion   Merge       Heap          Quick      Counting\n");
+    printf("\n[[RANDOM]]\n");
+    printf("    n       Selection      Insertion     Merge        Heap          Quick      Counting\n");
     for(int n = inc; n <= fim; n+=stp){
-        time_t insertionI, insertionF, selectionI, selectionF;
+        struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         //geração do vetor
         printf("  %d    ",n);
         media = 0;
@@ -49,40 +51,59 @@ int main(){
             vetorC[i] = vetor[i];
         }
 
-        
-
         //ordenações
         //selection
-        selectionI  = clock();
+        gettimeofday(&selectionI,NULL);
         for(int i = 0; i < rpt; i++){
             SelectionSort(n, vetorS);
-            gerarAleatorios(n, vetor);
+            gerarAleatorios(n, vetorS);
         }
-        selectionF = clock();
-        media = (double)(selectionF - selectionI)/CLOCKS_PER_SEC;
+        gettimeofday(&selectionF,NULL);
+        media = (((selectionF.tv_sec - selectionI.tv_sec) * 1000000) + (selectionF.tv_usec -selectionI.tv_usec))/1000000.0;
         media = media/rpt;
-        printf("%f      ",media);
+        printf("%lf      ",media);
 
         //insertion
-        insertionI = clock();
+        gettimeofday(&insertionI,NULL);
         for(int i = 0; i < rpt; i++){
             InsertionSort(n, vetorI);
+            gerarAleatorios(n, vetorI);
         }
-        insertionF = clock();
-        media = (double)(insertionF-insertionI)/CLOCKS_PER_SEC;
+        gettimeofday(&insertionF,NULL);
+        media = (((insertionF.tv_sec - insertionI.tv_sec) * 1000000) + (insertionF.tv_usec - insertionI.tv_usec))/1000000.0;
         media /= rpt;
-        printf("%f     ",media);
+        printf("%lf     ",media);
 
+        //Merge
+        gettimeofday(&mergeI,NULL);
+        for(int i = 0; i < rpt; i++){
+            MergeSort(n, vetorM);
+            gerarAleatorios(n, vetorM);
+        }
+        gettimeofday(&mergeF,NULL);
+        media = (((mergeF.tv_sec - mergeI.tv_sec) * 1000000) + (mergeF.tv_usec - mergeI.tv_usec))/1000000.0;
+        media /= rpt;
+        printf("%lf     ",media);
 
+        //Heap
+        gettimeofday(&heapI,NULL);
+        for(int i = 0; i < rpt; i++){
+            HeapSort(n, vetorH);
+            gerarAleatorios(n, vetorH);
+        }
+        gettimeofday(&heapF,NULL);
+        media = (((heapF.tv_sec - heapI.tv_sec) * 1000000) + (heapF.tv_usec - heapI.tv_usec))/1000000.0;
+        media /= rpt;
+        printf("%lf     ",media);
         
         printf("\n");
     }
 
 
-    printf("\n[[REVERSE]]");
-    printf("    n    Selection   Insertion   Merge       Heap          Quick      Counting\n");
+    printf("\n[[REVERSE]]\n");
+    printf("    n       Selection      Insertion     Merge        Heap          Quick      Counting\n");
     for(int n = inc; n <= fim; n+=stp){
-        time_t insertionI, insertionF, selectionI, selectionF;
+        struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         //geração do vetor
         printf("  %d    ",n);
         gerarReverso(n, vetor);
@@ -97,29 +118,42 @@ int main(){
 
         //ordenações
 
-        selectionI = clock();
+        //Selection
+        gettimeofday(&selectionI,NULL);
         SelectionSort(n, vetorS);
-        selectionF = clock();
-        printf("%f      ",(double)(selectionF-selectionI)/CLOCKS_PER_SEC);
+        gettimeofday(&selectionF,NULL);
+        media = (((selectionF.tv_sec - selectionI.tv_sec) * 1000000) + (selectionF.tv_usec -selectionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
-
-        insertionI = clock();
+        //Insertion
+        gettimeofday(&insertionI,NULL);
         InsertionSort(n, vetorI);
-        insertionF = clock();
-        printf("%f      ",(double)(insertionF-insertionI)/CLOCKS_PER_SEC);
+        gettimeofday(&insertionF,NULL);
+        media = (((insertionF.tv_sec - insertionI.tv_sec) * 1000000) + (insertionF.tv_usec - insertionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
+        //Merge
+        gettimeofday(&mergeI,NULL);
+        MergeSort(n, vetorM);
+        gettimeofday(&mergeF,NULL);
+        media = (((mergeF.tv_sec - mergeI.tv_sec) * 1000000) + (mergeF.tv_usec - mergeI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
-
-
+        //Heap
+        gettimeofday(&heapI,NULL);
+        HeapSort(n, vetorH);
+        gettimeofday(&heapF,NULL);
+        media = (((heapF.tv_sec - heapI.tv_sec) * 1000000) + (heapF.tv_usec - heapI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
         
         printf("\n");
     }
 
 
-    printf("\n[[SORTED]]");
-    printf("    n    Selection   Insertion   Merge       Heap          Quick      Counting\n");
+    printf("\n[[SORTED]]\n");
+    printf("    n       Selection      Insertion     Merge        Heap          Quick      Counting\n");
     for(int n = inc; n <= fim; n+=stp){
-        time_t insertionI, insertionF, selectionI, selectionF;
+        struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         //geração do vetor
         printf("  %d    ",n);
         gerarOrdenado(n, vetor);
@@ -134,17 +168,33 @@ int main(){
 
         //ordenações
 
-        selectionI = clock();
+        //Selection
+        gettimeofday(&selectionI,NULL);
         SelectionSort(n, vetorS);
-        selectionF = clock();
-        printf("%f      ",(double)(selectionF-selectionI)/CLOCKS_PER_SEC);
+        gettimeofday(&selectionF,NULL);
+        media = (((selectionF.tv_sec - selectionI.tv_sec) * 1000000) + (selectionF.tv_usec -selectionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
-        insertionI = clock();
+        //Insertion
+        gettimeofday(&insertionI,NULL);
         InsertionSort(n, vetorI);
-        insertionF = clock();
-        printf("%f      ",(double)(insertionF-insertionI)/CLOCKS_PER_SEC);
+        gettimeofday(&insertionF,NULL);
+        media = (((insertionF.tv_sec - insertionI.tv_sec) * 1000000) + (insertionF.tv_usec - insertionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
+        //Merge
+        gettimeofday(&mergeI,NULL);
+        MergeSort(n, vetorM);
+        gettimeofday(&mergeF,NULL);
+        media = (((mergeF.tv_sec - mergeI.tv_sec) * 1000000) + (mergeF.tv_usec - mergeI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
+        //Heap
+        gettimeofday(&heapI,NULL);
+        HeapSort(n, vetorH);
+        gettimeofday(&heapF,NULL);
+        media = (((heapF.tv_sec - heapI.tv_sec) * 1000000) + (heapF.tv_usec - heapI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
 
         
@@ -152,9 +202,9 @@ int main(){
     }
 
     printf("\n[[NEARLY SORTED]]\n");
-    printf("    n    Selection   Insertion   Merge       Heap          Quick      Counting\n");
+    printf("    n       Selection      Insertion     Merge        Heap          Quick      Counting\n");
     for(int n = inc; n <= fim; n+=stp){
-        time_t insertionI, insertionF, selectionI, selectionF;
+        struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         //geração do vetor
         printf("  %d    ",n);
         gerarQuaseOrdenado(n, vetor);
@@ -169,21 +219,50 @@ int main(){
 
         //ordenações
 
-        selectionI = clock();
+       //Selection
+        gettimeofday(&selectionI,NULL);
         SelectionSort(n, vetorS);
-        selectionF = clock();
-        printf("%f      ",(double)(selectionF-selectionI)/CLOCKS_PER_SEC);
+        gettimeofday(&selectionF,NULL);
+        media = (((selectionF.tv_sec - selectionI.tv_sec) * 1000000) + (selectionF.tv_usec -selectionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
-        insertionI = clock();
+        //Insertion
+        gettimeofday(&insertionI,NULL);
         InsertionSort(n, vetorI);
-        insertionF = clock();
-        printf("%f      ",(double)(insertionF-insertionI)/CLOCKS_PER_SEC);
+        gettimeofday(&insertionF,NULL);
+        media = (((insertionF.tv_sec - insertionI.tv_sec) * 1000000) + (insertionF.tv_usec - insertionI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
+        //Merge
+        gettimeofday(&mergeI,NULL);
+        MergeSort(n, vetorM);
+        gettimeofday(&mergeF,NULL);
+        media = (((mergeF.tv_sec - mergeI.tv_sec) * 1000000) + (mergeF.tv_usec - mergeI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
+
+        //Heap
+        gettimeofday(&heapI,NULL);
+        HeapSort(n, vetorH);
+        gettimeofday(&heapF,NULL);
+        media = (((heapF.tv_sec - heapI.tv_sec) * 1000000) + (heapF.tv_usec - heapI.tv_usec))/1000000.0;
+        printf("%lf      ",media);
 
 
 
         printf("\n");
+
+
+
+
     }
+    
+        free(vetor);
+        free(vetorS);
+        free(vetorI);
+        free(vetorM);
+        free(vetorH);
+        free(vetorQ);
+        free(vetorC);
 
     return 0;
 }

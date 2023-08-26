@@ -13,3 +13,7 @@ void gerarQuaseOrdenado(int tamanho, int * vetor);
 void InsertionSort(int tamanho, int *vetor);
 
 void SelectionSort(int tamanho, int * vetor);
+
+void MergeSort(int tamanho, int *vetor);
+
+void HeapSort(int tamanho, int *vetor);
