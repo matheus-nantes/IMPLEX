@@ -14,6 +14,10 @@ void InsertionSort(int tamanho, int *vetor);
 
 void SelectionSort(int tamanho, int * vetor);
 
-void MergeSort(int tamanho, int *vetor);
+void MergeSort(int *vetor, int left, int right);
 
 void HeapSort(int tamanho, int *vetor);
+
+void QuickSort(int *vetor, int low, int high);
+
+void countingSort(int vetor[], int tamanho);

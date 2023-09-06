@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include<time.h>
+#include <time.h>
 #include "biblioteca.h"
 
 void gerarAleatorios(int tamanho, int * vetor){
@@ -17,20 +17,30 @@ void gerarAleatorios(int tamanho, int * vetor){
 
 void gerarReverso(int tamanho, int * vetor){
     srand(time(NULL));
+    int acrescimo = 0;
 
     vetor[tamanho-1] = rand() % 10;
     for(int i = 2; i <= tamanho; i++){
-        vetor[tamanho-i] = vetor[tamanho-i+1] + rand()%10;
+        acrescimo = rand()%10;
+        if(acrescimo == 0){
+            acrescimo = rand()%10;
+        }
+        vetor[tamanho-i] = vetor[tamanho-i+1] + acrescimo;
     }
     // printf("----ALEAT----- + %d - %d\n",vetor[0], vetor[tamanho-1]);
 }
 
 void gerarOrdenado(int tamanho, int * vetor){
     srand(time(NULL));
+    int acrescimo = 0;
 
     vetor[0] = rand() % 10;
     for(int i = 1; i < tamanho; i++){
-        vetor[i] = vetor[i-1] + rand()%10;
+        acrescimo = rand()%10;
+        if(acrescimo == 0){
+            acrescimo = rand()%10;
+        }
+        vetor[i] = vetor[i-1] + acrescimo;
     }
     // printf("----ALEAT----- + %d - %d\n",vetor[0], vetor[tamanho-1]);
 }

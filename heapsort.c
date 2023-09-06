@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "biblioteca.h"
 
 void heapify(int arr[], int tamanho, int i) {

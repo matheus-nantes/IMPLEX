@@ -1,59 +1,67 @@
-#include <stdio.h>
 #include "biblioteca.h"
 
-void merge(int v[], int esq, int meio, int dir) {
-    int n1 = meio - esq + 1;
-    int n2 = dir - meio;
+void merge(int *vetor, int left, int mid, int right) {
+    int i, j, k;
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
 
-    int L[n1], R[n2];
+    // Cria vetores temporários
+    int *L = (int *)malloc(n1 * sizeof(int));
+    int *R = (int *)malloc(n2 * sizeof(int));
 
-    for (int i = 0; i < n1; i++)
-        L[i] = v[esq + i];
-    for (int j = 0; j < n2; j++)
-        R[j] = v[meio + 1 + j];
+    // Copia os dados para os vetores temporários L[] e R[]
+    for (i = 0; i < n1; i++)
+        L[i] = vetor[left + i];
+    for (j = 0; j < n2; j++)
+        R[j] = vetor[mid + 1 + j];
 
-    int i = 0, j = 0, k = esq;
-
+    // Funde os vetores temporários de volta em vetor[left..right]
+    i = 0;
+    j = 0;
+    k = left;
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
-            v[k] = L[i];
+            vetor[k] = L[i];
             i++;
         } else {
-            v[k] = R[j];
+            vetor[k] = R[j];
             j++;
         }
         k++;
     }
 
+    // Copia os elementos restantes de L[], se houver
     while (i < n1) {
-        v[k] = L[i];
+        vetor[k] = L[i];
         i++;
         k++;
     }
 
+    // Copia os elementos restantes de R[], se houver
     while (j < n2) {
-        v[k] = R[j];
+        vetor[k] = R[j];
         j++;
         k++;
     }
+
+    // Libera a memória dos vetores temporários
+    free(L);
+    free(R);
 }
 
-void MergeSort(int tamanho, int *vetor) {
-    if (tamanho > 1) {
-        int meio = tamanho / 2;
+// Função principal do MergeSort
+void MergeSort(int *vetor, int left, int right) {
+    if (left < right) {
+        // Encontra o ponto médio do vetor
+        int mid = left + (right - left) / 2;
 
-        int esq[meio];
-        int dir[tamanho - meio];
+        // Ordena a metade esquerda
+        MergeSort(vetor, left, mid);
 
-        for (int i = 0; i < meio; i++)
-            esq[i] = vetor[i];
-        for (int i = meio; i < tamanho; i++)
-            dir[i - meio] = vetor[i];
+        // Ordena a metade direita
+        MergeSort(vetor, mid + 1, right);
 
-        MergeSort(meio, esq);
-        MergeSort(tamanho - meio, dir);
-
-        merge(vetor, 0, meio - 1, tamanho - 1);
+        // Funde as duas metades ordenadas
+        merge(vetor, left, mid, right);
     }
 }
-
