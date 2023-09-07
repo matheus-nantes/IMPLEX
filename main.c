@@ -136,7 +136,7 @@ int main(){
         fprintf(mergeRandom,"%d %f\n",n,mediaM/rpt);
         fprintf(heapRandom,"%d %f\n",n,mediaH/rpt);
         fprintf(quickRandom,"%d %f\n",n,mediaQ/rpt);
-        fprintf(countingRandom,"%d %f",n,mediaC/rpt);
+        fprintf(countingRandom,"%d %f\n",n,mediaC/rpt);
         
         printf("\n");
         fprintf(tabela,"\n");
