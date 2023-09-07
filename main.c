@@ -44,8 +44,8 @@ int main(){
     quickRandom = fopen("quickRandom.txt","w");
     countingRandom = fopen("countingRandom.txt","w");
 
-    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
-    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
+    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
+    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
     for(int n = inc; n <= fim; n+=stp){
         struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         char aux[10];
@@ -166,8 +166,8 @@ int main(){
     heapReverse = fopen("heapReverse.txt","w");
     quickReverse = fopen("quickReverse.txt","w");
     countingReverse = fopen("countingReverse.txt","w");
-    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
-    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
+    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
+    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
     for(int n = inc; n <= fim; n+=stp){
         struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         char aux[10];
@@ -278,8 +278,8 @@ int main(){
     quickSorted = fopen("quickSorted.txt","w");
     countingSorted = fopen("countingSorted.txt","w");
 
-    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
-    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
+    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
+    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
     for(int n = inc; n <= fim; n+=stp){
         struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         char aux[10];
@@ -391,8 +391,8 @@ int main(){
     quickNearly = fopen("quickNearly.txt","w");
     countingNearly = fopen("countingNearly.txt","w");
 
-    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
-    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n");
+    printf("    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
+    fprintf(tabela,"    n       Selection     Insertion     Merge         Heap          Quick         Counting\n------------------------------------------------------------------------------------------\n");
     for(int n = inc; n <= fim; n+=stp){
         struct timeval insertionI, insertionF, selectionI, selectionF,mergeI,mergeF, heapI, heapF, quickI, quickF, countI, countF;
         char aux[10];
