@@ -1,22 +1,22 @@
 #include "biblioteca.h"
 
-void heapify(int arr[], int tamanho, int i) {
+void heapify(int vetor[], int tamanho, int i) {
     int maior = i;
     int esquerda = 2 * i + 1;
     int direita = 2 * i + 2;
 
-    if (esquerda < tamanho && arr[esquerda] > arr[maior])
+    if (esquerda < tamanho && vetor[esquerda] > vetor[maior])
         maior = esquerda;
 
-    if (direita < tamanho && arr[direita] > arr[maior])
+    if (direita < tamanho && vetor[direita] > vetor[maior])
         maior = direita;
 
     if (maior != i) {
-        int temp = arr[i];
-        arr[i] = arr[maior];
-        arr[maior] = temp;
+        int temp = vetor[i];
+        vetor[i] = vetor[maior];
+        vetor[maior] = temp;
 
-        heapify(arr, tamanho, maior);
+        heapify(vetor, tamanho, maior);
     }
 }
 

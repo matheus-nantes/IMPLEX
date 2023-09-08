@@ -1,62 +1,51 @@
 #include <stdio.h>
-#include <stdlib.h> // srand, rand
-#include <time.h> // time
+#include <stdlib.h> 
+#include <time.h>
 
-void troca(int vet[], int i, int j)
+void troca(int vetor[], int i, int j)
 {
-	int aux = vet[i];
-	vet[i] = vet[j];
-	vet[j] = aux;
+	int aux = vetor[i];
+	vetor[i] = vetor[j];
+	vetor[j] = aux;
 }
 
-// particiona e retorna o índice do pivô
-int particiona(int vet[], int inicio, int fim)
+// retorna o pivô
+int particiona(int vetor[], int inicio, int fim)
 {
-	int pivo, pivo_indice, i;
+	int pivo, indice, i;
 	
-	pivo = vet[fim]; // o pivô é sempre o último elemento
-	pivo_indice = inicio;
+	pivo = vetor[fim];
+	indice = inicio;
 	
 	for(i = inicio; i < fim; i++)
 	{
-		// verifica se o elemento é <= ao pivô
-		if(vet[i] <= pivo)
+		if(vetor[i] <= pivo)
 		{
-			// realiza a troca
-			troca(vet, i, pivo_indice);
-			// incrementa o pivo_indice
-			pivo_indice++;
+			troca(vetor, i, indice);
+			indice++;
 		}
 	}
 	
-	// troca o pivô
-	troca(vet, pivo_indice, fim);
-	
-	// retorna o índice do pivô
-	return pivo_indice;
+	troca(vetor, indice, fim);
+
+	return indice;
 }
 
-// escolhe um pivô aleatório para evitar o pior caso do quicksort
-int particiona_random(int vet[], int inicio, int fim)
+// método auxiliar para escoleher um pivô aleatório para evitar o pior caso do quicksort
+int particiona_random(int vetor[], int inicio, int fim)
 {
-	// seleciona um número entre fim (inclusive) e inicio (inclusive)
-	int pivo_indice = (rand() % (fim - inicio + 1)) + inicio;
-	
-	// faz a troca para colocar o pivô no fim
-	troca(vet, pivo_indice, fim);
-	// chama a particiona
-	return particiona(vet, inicio, fim);
+	int indice = (rand() % (fim - inicio + 1)) + inicio;
+	troca(vetor, indice, fim);
+	return particiona(vetor, inicio, fim);
 }
 
-void QuickSort(int vet[], int inicio, int fim)
+void QuickSort(int vetor[], int inicio, int fim)
 {
 	if(inicio < fim)
 	{
-		// função particionar retorna o índice do pivô
-		int pivo_indice = particiona_random(vet, inicio, fim);
-		
-		// chamadas recursivas QuickSort
-		QuickSort(vet, inicio, pivo_indice - 1);
-		QuickSort(vet, pivo_indice + 1, fim);
+		int indice = particiona_random(vetor, inicio, fim);
+
+		QuickSort(vetor, inicio, indice - 1);
+		QuickSort(vetor, indice + 1, fim);
 	}
 }

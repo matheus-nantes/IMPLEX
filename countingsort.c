@@ -1,6 +1,5 @@
 #include "biblioteca.h"
 
-// Função para encontrar o valor máximo no vetor
 int findMax(int vetor[], int tamanho) {
     int max = vetor[0];
     for (int i = 1; i < tamanho; i++) {
@@ -11,18 +10,15 @@ int findMax(int vetor[], int tamanho) {
     return max;
 }
 
-// Função de ordenação Counting Sort
 void countingSort(int vetor[], int tamanho) {
     int max = findMax(vetor, tamanho);
-    int *count = (int *)calloc(max + 1, sizeof(int)); // Cria um vetor de contagem com base no valor máximo
+    int *count = (int *)calloc(max + 1, sizeof(int));
 
-    // Conta a ocorrência de cada elemento
     for (int i = 0; i < tamanho; i++) {
         count[vetor[i]]++;
     }
 
-    int k = 0; // Índice do vetor original
-    // Reconstrói o vetor ordenado com base no vetor de contagem
+    int k = 0; 
     for (int i = 0; i <= max; i++) {
         while (count[i] > 0) {
             vetor[k] = i;
@@ -31,5 +27,5 @@ void countingSort(int vetor[], int tamanho) {
         }
     }
 
-    free(count); // Libera a memória alocada para o vetor de contagem
+    free(count);
 }
